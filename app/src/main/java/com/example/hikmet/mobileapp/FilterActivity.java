@@ -6,6 +6,7 @@ import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -63,7 +64,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     private Spinner spinnerMatters;
     private Matter[] mattersList;
     private GetMattersResponse matterModel;
-
+    int reporttpye=0;
     public void TestActivity() throws Exception {
 
         GlobalVariables.GetInstance().ipmodel= new IpModel("120.0.0.1","hs_hukuk","ABCHUKUK","success","GetIpContract","Giriş Başarılı");
@@ -138,14 +139,25 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         btnfilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int v_position=spinnerMatters.getSelectedItemPosition();
+                String v_startdate=startdate.getText().toString();
+                String v_enddate=enddate.getText().toString();
 
+
+                GlobalVariables.GetInstance().ReportType=reporttpye;
+                GlobalVariables.GetInstance().MatterId=mattersList[v_position].get_projekodu();
+                GlobalVariables.GetInstance().StartDate=v_startdate;
+                GlobalVariables.GetInstance().EndDate=v_enddate;
+
+                Intent intent= new Intent(FilterActivity.this,ListActivity.class);
+                startActivity(intent);
             }
         });
     }
     public void onRadioButtonClicked(View view) {
         // Is the button now checked?
         boolean checked = ((RadioButton) view).isChecked();
-        int reporttpye=0;
+
         showProgress(true);
         // Check which radio button was clicked
         switch(view.getId()) {

@@ -15,5 +15,9 @@ public class GlobalVariables
 	public IpModel ipmodel;
 	public String DbName;
 	public TimeEntry timeEntry;
+	public String StartDate;
+	public String EndDate;
+	public String MatterId;
+	public int ReportType;
 	
 }

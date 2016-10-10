@@ -28,6 +28,7 @@ public class ListActivity extends AppCompatActivity {
         data.set_projeadi("proje1");
         datalist.add(data);
         return datalist;
+
     }
     private List<TimeEntry> values;
     @Override

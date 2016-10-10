@@ -85,4 +85,5 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="title_activity_login2">Sign in</string>
     <string name="title_activity_filter2">Filter2Activity</string>
+    <string name="title_activity_list2">List2Activity</string>
 </resources>

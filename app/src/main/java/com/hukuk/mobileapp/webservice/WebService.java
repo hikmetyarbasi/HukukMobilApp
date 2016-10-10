@@ -22,8 +22,8 @@ public class WebService {
 	private static final String SOAP_ACTIONHSCLIENT = "http://tempuri.org/IHsClient/";
 	private static final String SOAP_ACTIONIPCLIENT = "http://tempuri.org/IIpManager/";
 	private static final String NAMESPACE = "http://tempuri.org/";
-	private static final String HsClient = "http://192.168.1.39/HukukWsApp/HsClient.svc/";
-	private static final String IpClient ="http://192.168.1.39/IpManagerApp/IpManagerWs.svc/";
+	private static final String HsClient = "http://10.34.10.184/HukukWsApp/HsClient.svc/";
+	private static final String IpClient ="http://10.34.10.184/IpManagerApp/IpManagerWs.svc/";
 	private boolean isResultVector = false;
 	private static WebService _wb=null;
 	

@@ -6,20 +6,21 @@ import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.view.View;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -52,27 +53,27 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
     private EditText startdate;
     private EditText enddate;
     private String flagclickdate="";
-    private FilterInitTask mAuthTask = null;
-    private SpinAdapter adapter;
+    private FilterActivity.FilterInitTask mAuthTask = null;
+    private FilterActivity.SpinAdapter adapter;
     private EditText mDbName;
     private EditText mUserId;
     private EditText mPasswordView;
     private View mProgressView;
     private View mFilterFormView;
-    private Spinner  spinnerMatters;
+    private Spinner spinnerMatters;
     private Matter[] mattersList;
     private GetMattersResponse matterModel;
 
     public void TestActivity() throws Exception {
 
         GlobalVariables.GetInstance().ipmodel= new IpModel("120.0.0.1","hs_hukuk","ABCHUKUK","success","GetIpContract","Giriş Başarılı");
-       //WebService.getInstance().Test();
+        //WebService.getInstance().Test();
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.filter_activity);
+        setContentView(R.layout.activity_filter);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -95,8 +96,6 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         navigationView.setNavigationItemSelectedListener(this);
 
 
-
-
         btnStartDate = (ImageButton) findViewById(R.id.btnstartdate);
         btnfilter = (Button)findViewById(R.id.btnfilter);
         cal = Calendar.getInstance();
@@ -104,7 +103,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         month = cal.get(Calendar.MONTH);
         year = cal.get(Calendar.YEAR);
         startdate = (EditText) findViewById(R.id.startdate);
-        btnStartDate.setOnClickListener(this);
+        btnStartDate.setOnClickListener((View.OnClickListener) this);
 
 
         btnEndDate = (ImageButton) findViewById(R.id.btnenddate);
@@ -113,12 +112,12 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
         month = cal.get(Calendar.MONTH);
         year = cal.get(Calendar.YEAR);
         enddate = (EditText) findViewById(R.id.enddate);
-        btnEndDate.setOnClickListener(this);
+        btnEndDate.setOnClickListener((View.OnClickListener) this);
 
         mFilterFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
         mattersList= new Matter[0];
-        adapter = new SpinAdapter(FilterActivity.this, android.R.layout.simple_spinner_item,mattersList);
+        adapter = new FilterActivity.SpinAdapter(FilterActivity.this, android.R.layout.simple_spinner_item,mattersList);
 
         spinnerMatters=(Spinner) findViewById(R.id.matters_spinner);
 
@@ -153,17 +152,17 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             case R.id.personal:
                 if (checked)
                     reporttpye=1;
-                    break;
+                break;
             case R.id.firstcntr:
                 if (checked)
                     reporttpye=2;
-                    break;
+                break;
             case R.id.finalcntr:
                 if (checked)
                     reporttpye=3;
-                    break;
+                break;
         }
-        mAuthTask = new FilterInitTask(reporttpye);
+        mAuthTask = new FilterActivity.FilterInitTask(reporttpye);
         mAuthTask.execute((Matter[]) null);
     }
 
@@ -218,10 +217,61 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             mFilterFormView.setVisibility(show ? View.GONE : View.VISIBLE);
         }
     }
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.filter, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        return false;
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+        } else if (id == R.id.nav_gallery) {
+
+        } else if (id == R.id.nav_slideshow) {
+
+        } else if (id == R.id.nav_manage) {
+
+        } else if (id == R.id.nav_share) {
+
+        } else if (id == R.id.nav_send) {
+
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
     public class FilterInitTask extends AsyncTask<Matter[], Void, Matter[]> {
@@ -240,7 +290,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
 
             try {
                 TestActivity();
-                matterModel=WebService.getInstance().GetMatters(GlobalVariables.GetInstance().ipmodel.GetDbName() ,gridtype);
+                matterModel= WebService.getInstance().GetMatters(GlobalVariables.GetInstance().ipmodel.GetDbName() ,gridtype);
                 List<Matter> list=matterModel.getMatters();
                 mattersList=list.toArray(new Matter[list.size()]);
 
@@ -282,7 +332,7 @@ public class FilterActivity extends AppCompatActivity implements View.OnClickLis
             showProgress(false);
 
             if (list!= null){
-                adapter = new SpinAdapter(FilterActivity.this, android.R.layout.simple_spinner_item,list);
+                adapter = new FilterActivity.SpinAdapter(FilterActivity.this, android.R.layout.simple_spinner_item,list);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinnerMatters.setAdapter(adapter);
             }

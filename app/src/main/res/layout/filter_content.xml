@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.hikmet.mobileapp.MainActivity"
+    tools:showIn="@layout/filter_app_bar">
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/radio_btn_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+
+            <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RadioButton android:id="@+id/personal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/personal"
+                    android:onClick="onRadioButtonClicked"/>
+                <RadioButton android:id="@+id/firstcntr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/firstcntr"
+                    android:onClick="onRadioButtonClicked"/>
+                <RadioButton android:id="@+id/finalcntr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/finalcntr"
+                    android:onClick="onRadioButtonClicked"/>
+            </RadioGroup>
+            <Spinner
+                android:id="@+id/matters_spinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" />
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MainActivity"
+                >
+                <EditText
+                    android:id="@+id/startdate"
+                    android:layout_width="250dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_height="wrap_content"
+                    android:editable="false" >
+                </EditText>
+
+                <ImageButton
+                    android:id="@+id/btnstartdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/startdate"
+                    android:layout_toRightOf="@+id/startdate"
+                    android:cropToPadding="true"
+                    android:src="@drawable/calender" />
+            </RelativeLayout>
+            <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".MainActivity"
+                >
+                <EditText
+                    android:id="@+id/enddate"
+                    android:layout_width="250dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_height="wrap_content"
+                    android:editable="false" >
+                </EditText>
+
+                <ImageButton
+                    android:id="@+id/btnenddate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/enddate"
+                    android:layout_toRightOf="@+id/enddate"
+                    android:cropToPadding="true"
+                    android:src="@drawable/calender" />
+            </RelativeLayout>
+            <Button
+                android:id="@+id/btnfilter"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/search"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+    </ScrollView>
+</RelativeLayout>
